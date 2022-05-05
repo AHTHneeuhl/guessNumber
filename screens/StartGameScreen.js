@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import CustomButton from "../components/CustomButton";
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onPickNumber }) => {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   const numberInputHanlder = (enteredText) => {
@@ -22,6 +22,8 @@ const StartGameScreen = () => {
       ]);
       return;
     }
+
+    onPickNumber(chosenNumber);
   };
 
   return (
