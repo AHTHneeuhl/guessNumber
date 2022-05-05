@@ -1,7 +1,29 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { useState } from "react";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import CustomButton from "../components/CustomButton";
 
 const StartGameScreen = () => {
+  const [enteredNumber, setEnteredNumber] = useState("");
+
+  const numberInputHanlder = (enteredText) => {
+    setEnteredNumber(enteredText);
+  };
+
+  const resetInputHandler = () => {
+    setEnteredNumber("");
+  };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(enteredNumber);
+
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert("Invalid Number", "Number should be between 1 and 99.", [
+        { text: "Okey", style: "destructive", onPress: resetInputHandler },
+      ]);
+      return;
+    }
+  };
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -9,13 +31,15 @@ const StartGameScreen = () => {
         maxLength={2}
         keyboardType="number-pad"
         autoCapitalize="none"
+        value={enteredNumber}
+        onChangeText={numberInputHanlder}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <CustomButton>Reset</CustomButton>
+          <CustomButton onPress={resetInputHandler}>Reset</CustomButton>
         </View>
         <View style={styles.buttonContainer}>
-          <CustomButton>Confirm</CustomButton>
+          <CustomButton onPress={confirmInputHandler}>Confirm</CustomButton>
         </View>
       </View>
     </View>
