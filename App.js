@@ -15,7 +15,7 @@ export default function App() {
 
   const renderScreen = () => {
     if (userNumber) {
-      return <GameScreen />;
+      return <GameScreen userNumber={userNumber} />;
     } else {
       return <StartGameScreen onPickNumber={pickedNumberHandler} />;
     }
