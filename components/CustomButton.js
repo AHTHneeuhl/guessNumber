@@ -1,5 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import Colors from "../theme/colors";
+
 const CustomButton = ({ children, onPress }) => {
   return (
     <View style={styles.buttonOuterContainer}>
@@ -27,17 +29,17 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   buttonInnerContainer: {
-    backgroundColor: "#72063C",
+    backgroundColor: Colors.primary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
     elevation: 2,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: Colors.white,
     textAlign: "center",
   },
   ripple: {
-    color: "#8E2F5C",
+    color: Colors.primary600,
   },
   pressed: {
     opacity: 0.75,
