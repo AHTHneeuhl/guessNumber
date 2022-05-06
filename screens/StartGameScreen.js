@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 
 import CustomButton from "../components/common/CustomButton";
+import InstructionText from "../components/common/InstructionText";
+import Title from "../components/common/Title";
+import Card from "../components/ui/Card";
 import Colors from "../theme/colors";
 
 const StartGameScreen = ({ onPickNumber }) => {
@@ -29,23 +32,27 @@ const StartGameScreen = ({ onPickNumber }) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.styledInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        value={enteredNumber}
-        onChangeText={numberInputHanlder}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <CustomButton onPress={resetInputHandler}>Reset</CustomButton>
+    <View style={styles.screenContainer}>
+      <Title>Guess Number</Title>
+      <Card>
+        <InstructionText>Enter a number</InstructionText>
+        <TextInput
+          style={styles.styledInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          value={enteredNumber}
+          onChangeText={numberInputHanlder}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={resetInputHandler}>Reset</CustomButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={confirmInputHandler}>Confirm</CustomButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <CustomButton onPress={confirmInputHandler}>Confirm</CustomButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 };
@@ -53,18 +60,10 @@ const StartGameScreen = ({ onPickNumber }) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    alignItems: "center",
+  screenContainer: {
+    flex: 1,
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: Colors.primary800,
-    elevation: 4,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+    alignItems: "center",
   },
   styledInput: {
     height: 50,
