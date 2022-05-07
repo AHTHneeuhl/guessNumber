@@ -7,6 +7,7 @@ import Title from "../components/common/Title";
 import CustomButton from "../components/common/CustomButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/common/InstructionText";
+import GuessRoundItem from "../components/game/GuessRoundItem";
 
 const generateRandomBetween = (min, max, exclude) => {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -28,7 +29,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
 
@@ -63,6 +64,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     setGuessRounds((prevState) => [newRndNumber, ...prevState]);
   };
 
+  const guessRoundsListLength = guessRounds.length;
+
   return (
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
@@ -84,10 +87,15 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={guessRounds}
-          renderItem={(round) => <Text>{round.item}</Text>}
+          renderItem={(round) => (
+            <GuessRoundItem
+              guess={round.item}
+              roundNumber={guessRoundsListLength - round.item}
+            />
+          )}
           keyExtractor={(item) => item}
         />
       </View>
@@ -111,5 +119,9 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     marginBottom: 12,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });
